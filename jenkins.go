@@ -263,11 +263,11 @@ func (jenkins *Jenkins) CreateView(listView ListView) error {
 
 // Create a new build for this job.
 // Params can be nil.
-func (jenkins *Jenkins) Build(job Job, params url.Values) error {
-	if hasParams(job) {
-		return jenkins.post(fmt.Sprintf("/job/%s/buildWithParameters", job.Name), params, nil)
+func (jenkins *Jenkins) Build(job string, params url.Values) error {
+	if params != nil {
+		return jenkins.post(fmt.Sprintf("/job/%s/buildWithParameters", job), params, nil)
 	} else {
-		return jenkins.post(fmt.Sprintf("/job/%s/build", job.Name), params, nil)
+		return jenkins.post(fmt.Sprintf("/job/%s/build", job), params, nil)
 	}
 }
 
